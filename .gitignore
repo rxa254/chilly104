@@ -1,0 +1,4 @@
+.conda/
+__pycache__/
+# Chilkey's own files (manual, purchase note, VIA definition): local copies only
+official/
