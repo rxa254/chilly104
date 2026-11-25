@@ -115,6 +115,7 @@ Read and set over USB with plain VIA frames on the keyboard's vendor interface: 
 | Underglow | 255 | 6 | 0 | 0, 255 |
 | Backlight | 255 | 20 | 0 | 56, 255 |
 
+- Shortly afterwards the underglow was set back to solid blue (effect 1, hue 170, saturation 255, brightness 255) and stored with `09 02`. The backlight values above were left as stored.
 - Whether the stored values survive a power cycle has not been tested.
 - Over Bluetooth, macOS lists the vendor interface but refuses to open it ("open failed"), so lighting can be read and set only over USB.
 - No battery or charging readout exists over USB (settings ids `00`–`2F` and the other VIA channels were read; nothing battery-like). Over Bluetooth, macOS shows the level in `pmset -g accps`; it read 65 % from 13:52 to 13:57, too short a span to show charging.
