@@ -98,9 +98,23 @@ Read and set over USB with plain VIA frames on the keyboard's vendor interface: 
 
 - Underglow effect 1 is a solid color. Other underglow effect numbers were not explored.
 
-## Current setup
+## Setup on 2026-11-24 (not saved, later lost)
 
 - Underglow: solid blue (effect 1, hue 170, saturation 255, brightness 255).
 - Backlight: driven by `tools/idle_breathe.py` while that script runs. Red breathing (effect 5, speed 88, for a period of about 3 s by QMK's formula; the period was not timed) after 5 s without a keypress, and effect 34 with the base hue swept around the color wheel every 4 s while typing.
-- **None of this was saved with the VIA save command (`09`).** Whether it survives a power cycle is untested.
+- None of this was saved with the VIA save command (`09`).
 - hidapi opens the vendor interface exclusively on macOS: a second open fails while another process holds it. The script therefore holds the device only while it is sending.
+
+## Saved configuration: 2026-11-25
+
+- On 2026-11-25 the keyboard was paired over Bluetooth, moved to a wall charger, and later returned to USB. Afterwards the unsaved colors were gone: the underglow read back exactly as found on 2026-11-24 (effect 6, speed 0, hue 0, saturation 255), not blue. So values set with `07` and not saved do not survive; which step (mode switch or loss of USB power) reset them was not isolated.
+- The backlight was then chosen by hand with `Fn + ]` and stored with `09 02` and `09 03` (the keyboard echoed both). Stored values:
+
+| | Brightness | Effect | Speed | Hue, saturation |
+|---|---|---|---|---|
+| Underglow | 255 | 6 | 0 | 0, 255 |
+| Backlight | 255 | 20 | 0 | 56, 255 |
+
+- Whether the stored values survive a power cycle has not been tested.
+- Over Bluetooth, macOS lists the vendor interface but refuses to open it ("open failed"), so lighting can be read and set only over USB.
+- No battery or charging readout exists over USB (settings ids `00`–`2F` and the other VIA channels were read; nothing battery-like). Over Bluetooth, macOS shows the level in `pmset -g accps`; it read 65 % from 13:52 to 13:57, too short a span to show charging.
